@@ -18,7 +18,6 @@ public class ValidPalindromeII {
 
 		while (i < j) {
 			if (s.charAt(i) != s.charAt(j)) {
-				//String subString = s.substring(i, j);
 				return checkPalindrom(s, i + 1, j) || checkPalindrom(s, i, j -1);
 			}
 			i++;
