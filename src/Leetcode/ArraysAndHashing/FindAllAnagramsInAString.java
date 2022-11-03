@@ -56,20 +56,77 @@ public class FindAllAnagramsInAString {
 			System.out.println(pMap);
 			
 		}
-		for (int leftIndex = 0; leftIndex < s.length() - p.length() + 1; leftIndex++) {
+		for (int leftIndex = 0; leftIndex < s.length(); leftIndex++) {
 			int rightIndex = leftIndex + p.length() -1;
 			int i = leftIndex;
-			sMap = new HashMap<>();
-			while (i <= rightIndex) {
-				sMap.put(s.charAt(i), sMap.getOrDefault(s.charAt(i), 0) + 1);
-				i++;
+//			sMap = new HashMap<>();
+//			while (i <= rightIndex) {
+//				sMap.put(s.charAt(i), sMap.getOrDefault(s.charAt(i), 0) + 1);
+//				i++;
+//			}
+			sMap.put(s.charAt(leftIndex), sMap.getOrDefault(s.charAt(leftIndex),0) + 1);
+			
+			if (leftIndex >= p.length()) {
+				char ch = s.charAt(leftIndex - p.length());
+				if (sMap.get(ch) == 1) {
+					sMap.remove(ch);
+				} else {
+					sMap.put(ch, sMap.get(ch) - 1);
+				}
 			}
 			System.out.println("sMAP" + sMap);
 			if (sMap.equals(pMap)) {
-				indices.add(leftIndex);
+				indices.add(leftIndex - p.length()+1);
 			}
 		}
 		return indices;
 		
+	}
+	public static List<Integer> findAllAnagrams3(String s, String p) {
+		 int ns = s.length(), np = p.length();
+		    if (ns < np) return new ArrayList();
+
+		    Map<Character, Integer> pCount = new HashMap();
+		    Map<Character, Integer> sCount = new HashMap();
+		    // build reference hashmap using string p
+		    for (char ch : p.toCharArray()) {
+		      if (pCount.containsKey(ch)) {
+		        pCount.put(ch, pCount.get(ch) + 1);
+		      }
+		      else {
+		        pCount.put(ch, 1);
+		      }
+		    }
+
+		    List<Integer> output = new ArrayList();
+		    // sliding window on the string s
+		    for (int i = 0; i < ns; ++i) {
+		      // add one more letter 
+		      // on the right side of the window
+		      char ch = s.charAt(i);
+		      if (sCount.containsKey(ch)) {
+		        sCount.put(ch, sCount.get(ch) + 1);
+		      }
+		      else {
+		        sCount.put(ch, 1);
+		      }
+		      // remove one letter 
+		      // from the left side of the window
+		      if (i >= np) {
+		        ch = s.charAt(i - np);
+		        if (sCount.get(ch) == 1) {
+		          sCount.remove(ch);
+		        }
+		        else {
+		          sCount.put(ch, sCount.get(ch) - 1);
+		        }
+		      }
+		      // compare hashmap in the sliding window
+		      // with the reference hashmap
+		      if (pCount.equals(sCount)) {
+		        output.add(i - np + 1);
+		      }
+		    }
+		    return output;
 	}
 }
