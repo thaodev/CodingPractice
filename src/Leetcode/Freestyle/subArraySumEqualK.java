@@ -9,7 +9,11 @@ public class subArraySumEqualK {
 		int[] arr = {36, 12, -1, 5, 1, 30, 5, 15, 36};
 		System.out.println(findSubArraySumEqualK(arr, 36));
 	}
-	
+	/**
+	 * if we found k is the difference between two consecutive sums of two indices. 
+	 * any index between those two would be the subarray that add up to k
+	 
+	 */
 	public static int findSubArraySumEqualK(int[] nums, int k) {
 		  int count = 0, sum = 0;
 	        HashMap < Integer, Integer > map = new HashMap < > ();

@@ -57,13 +57,6 @@ public class FindAllAnagramsInAString {
 			
 		}
 		for (int leftIndex = 0; leftIndex < s.length(); leftIndex++) {
-			int rightIndex = leftIndex + p.length() -1;
-			int i = leftIndex;
-//			sMap = new HashMap<>();
-//			while (i <= rightIndex) {
-//				sMap.put(s.charAt(i), sMap.getOrDefault(s.charAt(i), 0) + 1);
-//				i++;
-//			}
 			sMap.put(s.charAt(leftIndex), sMap.getOrDefault(s.charAt(leftIndex),0) + 1);
 			
 			if (leftIndex >= p.length()) {
